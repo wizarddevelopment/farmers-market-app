@@ -1,21 +1,21 @@
 angular.module('starter.controllers', [])
 
-.controller('FarmsCtrl', function($scope, Farms) {
-  console.log('Farmsctrl');
+.controller('SearchCtrl', function($scope, Markets) {
+  console.log('SearchCtrl');
 
   // shit to search with
 })
-.controller('FarmResultsCtrl', function($scope, $stateParams, Farms) {
-  $scope.farms = Farms.all();
-  console.log('farmrst');
-  $scope.favorite = function(farm) {
+.controller('MarketsCtrl', function($scope, $stateParams, Markets) {
+  console.log('MarketsCtrl');
+  $scope.markets = Markets.all();
+  $scope.favorite = function(market) {
     // haha
-    Farms.remove(farm.id);
+    Markets.remove(market.id);
   };
 })
-.controller('FarmDetailCtrl', function($scope, $stateParams, Farms) {
-  console.log('FarmDetailCtrl');
-  $scope.farm = Farms.get($stateParams.farmId);
+.controller('MarketCtrl', function($scope, $stateParams, Markets) {
+  console.log('MarketCtrl');
+  $scope.market = Markets.get($stateParams.marketId);
 })
 
 .controller('AboutCtrl', function($scope) {

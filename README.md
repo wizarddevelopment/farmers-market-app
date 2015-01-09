@@ -4,7 +4,7 @@ This is an open source NYC farmers market app
 
 # Todo
 
- - [ ] Navigation
+ - [x] Navigation
  - [ ] Search
  - [ ] Update saved market data
  - [ ] Grow food?

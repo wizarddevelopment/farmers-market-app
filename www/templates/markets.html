@@ -1,0 +1,14 @@
+<ion-view view-title="Farms">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="market in markets" type="item-text-wrap" href="#/tab/markets/{{market.id}}">
+        <h2>{{market.name}}</h2>
+        <p>{{market.id}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+        <ion-option-button class="button-assertive" ng-click="favorite(market)">
+          Favorite
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

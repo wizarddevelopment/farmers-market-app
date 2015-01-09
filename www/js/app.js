@@ -37,30 +37,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   // Each tab has its own nav history stack:
-  .state('tab.farms',{
-    url: '/farms',
+  .state('tab.markets',{
+    url: '/markets',
     views: {
-      'tab-farms': {
-        templateUrl: 'templates/tab-farms.html',
-        controller: 'FarmsCtrl'
+      'tab-markets': {
+        templateUrl: 'templates/tab-markets.html',
+        controller: 'SearchCtrl'
       }
     }
   })
   .state('tab.results', {
-    url: '/farms/results',
+    url: '/markets/results',
     views: {
-      'tab-farms': {
-        templateUrl: 'templates/tab-farm-results.html',
-        controller: 'FarmResultsCtrl'
+      'tab-markets': {
+        templateUrl: 'templates/markets.html',
+        controller: 'MarketsCtrl'
       }
     }
   })
-  .state('tab.farm-detail', {
-    url: '/farms/:farmId',
+  .state('tab.market', {
+    url: '/markets/:marketId',
     views: {
-      'tab-farms': {
-        templateUrl: 'templates/farm-detail.html',
-        controller: 'FarmDetailCtrl'
+      'tab-markets': {
+        templateUrl: 'templates/market.html',
+        controller: 'MarketCtrl'
       }
     }
   })
@@ -75,6 +75,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/farms');
+  $urlRouterProvider.otherwise('/tab/markets');
 
 });
