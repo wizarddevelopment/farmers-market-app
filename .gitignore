@@ -4,3 +4,6 @@
 node_modules/
 platforms/
 plugins/
+
+# compiled from sass
+www/css/ionic.app.*

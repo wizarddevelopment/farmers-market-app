@@ -1,27 +1,24 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('FarmsCtrl', function($scope, Farms) {
+  console.log('Farmsctrl');
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
+  // shit to search with
+})
+.controller('FarmResultsCtrl', function($scope, $stateParams, Farms) {
+  $scope.farms = Farms.all();
+  console.log('farmrst');
+  $scope.favorite = function(farm) {
+    // haha
+    Farms.remove(farm.id);
+  };
+})
+.controller('FarmDetailCtrl', function($scope, $stateParams, Farms) {
+  console.log('FarmDetailCtrl');
+  $scope.farm = Farms.get($stateParams.farmId);
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
-})
-
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-})
-
-.controller('AccountCtrl', function($scope) {
+.controller('AboutCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
