@@ -9,6 +9,10 @@ angular.module('starter.services', [])
     {
       id: 0,
       name: "Maggies Farm"
+    },
+    {
+      id: 1,
+      name: "Vico's Farm"
     }
   ];
 
@@ -19,6 +23,9 @@ angular.module('starter.services', [])
     get: function(farmId) {
       // Simple index lookup
       return farms[farmId];
+    },
+    remove: function(farmId) {
+      farms.splice(farmId, 1);
     }
   }
 });
