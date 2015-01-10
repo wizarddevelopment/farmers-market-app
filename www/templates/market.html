@@ -8,14 +8,16 @@
   <ion-content class="padding">
     <div class="list card">
       <div class="item item-avatar">
-      <img src="../img/ionic.png" >
+        <img src="../img/ionic.png" >
         <h2>{{market.name}}</h2>
       </div>
+      <div class="item item-body">
 
-      <div id="map" data-tap-disabled="true"></div>
-      <p ng-show="market.distance">{{market.distance}} miles away</p>
-      <p>Season: {{market.schedule_season_description}}</p>
-      <p>Schedule: {{market.schedule_hours_description}}</p>
-    </div>
+        <div id="map" data-tap-disabled="true" style="height:200px"></div>
+        <p ng-show="market.distance">{{market.distance}} miles away</p>
+        <p>Season: {{market.schedule_season_description}}</p>
+        <p>Schedule: {{market.schedule_hours_description}}</p>
+      </div>
+  </div>
   </ion-content>
 </ion-view>
