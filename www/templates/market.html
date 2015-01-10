@@ -6,9 +6,16 @@
 -->
 <ion-view view-title="{{market.name}}">
   <ion-content class="padding">
-    <img ng-src="{{market.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{market.id}}
-    </p>
+    <div class="list card">
+      <div class="item item-avatar">
+      <img src="../img/ionic.png" >
+        <h2>{{market.name}}</h2>
+      </div>
+
+      <div id="map" data-tap-disabled="true"></div>
+      <p ng-show="market.distance">{{market.distance}} miles away</p>
+      <p>Season: {{market.schedule_season_description}}</p>
+      <p>Schedule: {{market.schedule_hours_description}}</p>
+    </div>
   </ion-content>
 </ion-view>

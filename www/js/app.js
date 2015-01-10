@@ -41,13 +41,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/markets',
     views: {
       'tab-markets': {
-        templateUrl: 'templates/tab-markets.html',
+        templateUrl: 'templates/tab-search.html',
         controller: 'SearchCtrl'
       }
     }
   })
   .state('tab.results', {
-    url: '/markets/results',
+    url: '/markets/results/:latitude/:longitude',
     views: {
       'tab-markets': {
         templateUrl: 'templates/markets.html',
