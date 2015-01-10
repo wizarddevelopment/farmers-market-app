@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.farmers541783" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Farmer's Market NYC</name>
+  <name>Farmers Market NYC</name>
   <description>
-        A NYC farmer's market app.
+        A NYC farmers market app.
     </description>
   <author email="team@wizarddevelopment.com" href="http://wizarddevelopment.com/">
       Ionic Framework Team
