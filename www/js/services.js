@@ -9,8 +9,8 @@ angular.module('starter.services', [])
     {
       "id": 1,
       "name": "Staten Island Mall Greenmarket",
-      "latitude": "40.581994",
-      "longitude": "74.16607",
+      "latitude": 40.581994,
+      "longitude": -74.16607,
       "location_description": "Richmond Ave. entrance, in parking lot",
       "address": {
         "street": "2655 Richmond Ave",
@@ -28,8 +28,8 @@ angular.module('starter.services', [])
     {
       "id": 2,
       "name": "Saint George Greenmarket",
-      "latitude": "40.581994",
-      "longitude": "74.07791",
+      "latitude": 40.581994,
+      "longitude": -74.07791,
       "location_description": "St. Mark's Pl., Hyatt St., Theater parking lot",
       "address": {
         "street": "St Marks Pl and Hyatt St",
@@ -47,8 +47,8 @@ angular.module('starter.services', [])
     {
       "id": 3,
       "name": "Forest Hills Greenmarket",
-      "latitude": "40.581994",
-      "longitude": "73.84639",
+      "latitude": 40.58199,
+      "longitude": -73.84639,
       "location_description": "South side of Queens Blvd at 70th Ave.",
       "address": {
         "street": "Queens Blvd and 70th Ave",
@@ -66,6 +66,21 @@ angular.module('starter.services', [])
     ];
 
   return {
+    sortByDistance: function(postion) {
+      markets.forEach(function(market){
+        var distanceMeters = geolib.getDistance(market, postion);
+        var distanceMiles = distanceMeters * 0.00062137;
+        distanceMiles = Math.round(distanceMiles * 100) / 100
+        market.distance = distanceMiles;
+        console.log(market);
+      });
+      return markets.sort(function(a, b){
+        //return -1 if a is closer than b
+        //return +1 if b is closer than a
+        //return 0 if the same
+        return a.distance - b.distance;
+      });
+    },
     all: function() {
       return markets;
     },
