@@ -43,6 +43,32 @@ angular.module('starter.controllers', [])
 .controller('MarketCtrl', function($scope, $stateParams, Markets) {
   console.log('MarketCtrl');
   $scope.market = Markets.get($stateParams.marketId);
+  console.log($scope.market)
+  google.maps.event.addDomListener(window, 'load', function() {
+      var myLat = $scope.market.latitude
+      var myLng = $scope.market.longitude
+      var myLatlng = new google.maps.LatLng(myLat, myLng);
+
+      var mapOptions = {
+          center: myLatlng,
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+      navigator.geolocation.getCurrentPosition(function(pos) {
+          map.setCenter(new google.maps.LatLng(myLat, myLng));
+          var myLocation = new google.maps.Marker({
+              position: new google.maps.LatLng(myLat, myLng),
+              map: map,
+              title: "My Location"
+          });
+      });
+
+      $scope.map = map;
+  });
+
 })
 
 .controller('AboutCtrl', function($scope, $ionicLoading) {
