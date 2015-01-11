@@ -1,11 +1,13 @@
 angular.module('starter.controllers', [])
 
-.controller('SearchCtrl', function($scope, $state, $ionicLoading) {
+.controller('SearchCtrl', function($scope, $state, $ionicLoading, Boroughs) {
   console.log('SearchCtrl');
   var geoOptions = {
     timeout: 10000
   };
-
+  // $scope.boroughs = ['Brooklyn', 'Bronx', 'Manhattan', 'Staten Island', 'Queens']
+  $scope.boroughs = Boroughs.all();
+  console.log($scope.boroughs);
   var error = function() {
     $ionicLoading.hide();
     console.log('error!!!');
@@ -26,7 +28,13 @@ angular.module('starter.controllers', [])
     });
     navigator.geolocation.getCurrentPosition(search,error,geoOptions);
   };
-
+  $scope.choose_borough = function(borough) {
+    $scope.borough = borough
+    console.log(borough);
+    // $state.go("tab.buroughs", {
+    //   borough: borough
+    // });
+  };
 })
 .controller('MarketsCtrl', function($scope, $stateParams, Markets) {
   console.log('MarketsCtrl', $stateParams);
@@ -35,6 +43,17 @@ angular.module('starter.controllers', [])
   } else {
     $scope.markets = Markets.all();
   }
+  // if ($stateParams.borough) {
+  //   var borough = $stateParams.borough;
+  //   $scope.markets = [];
+  //   console.log($scope.markets.push(1));
+  //   Markets.forEach(function(market, borough){
+  //     if($scope.markets.city == borough {
+  //       $scope.markets.push(value.genre);
+  //     }
+  //   });
+  //   console.log($scope.markets.push(2));
+  // }
   $scope.favorite = function(market) {
     // haha
     Markets.remove(market.id);

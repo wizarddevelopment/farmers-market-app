@@ -46,6 +46,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+  .state('tab.buroughs', {
+    url: 'markets/boroughs/:borough',
+    views: {
+      'tab-markets': {
+        templateUrl: 'templates/borough-markets.html',
+        controller: 'MarketsCtrl'
+      }
+    }
+  })
   .state('tab.results', {
     url: '/markets/results/:latitude/:longitude',
     views: {

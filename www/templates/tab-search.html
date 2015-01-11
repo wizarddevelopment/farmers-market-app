@@ -2,7 +2,13 @@
   <ion-content>
     <h1>Find a Farmers Market:</h1>
     <button class="button" ng-click="geolocate()">Near Me</button>
-    <a href="#/tab/markets/results">By Location</a>
-
+    <p>By Borough</p>
+    <form novalidate class="simple-form">
+      <select>
+          <option value="all" selected>All</option>
+          <option ng-repeat="name in boroughs" ng-model="borough" value="{{name}}">{{name}}</option>
+      </select>
+      <input type="submit" ng-click="choose_borough(borough)" value="Search" />
+    <form novalidate class="simple-form">
   </ion-content>
 </ion-view>

@@ -3,8 +3,45 @@ angular.module('starter.services', [])
 /**
  * Example Farm Data
  */
-.factory('Markets', function() {
+.factory('Boroughs', function() {
+  var boroughs = [
+    {
+      "id": 0,
+      "name": "Brooklyn",
+      "selected": null
+    },
+    {
+      "id": 1,
+      "name": "Bronx",
+      "selected": null
+    },
+    {
+      "id": 2,
+      "name": "Manhattan",
+      "selected": null
+    },
+    {
+      "id": 3,
+      "name": "Staten Island",
+      "selected": null
+    },
+    {
+      "id": 4,
+      "name": "Queens",
+      "selected": null
+    }
+  ];
+  return {
+    all: function() {
+      return boroughs;
+    },
+    get: function(boroughId) {
+      return boroughs[boroughId];
+    },
+  }
+})
 
+.factory('Markets', function() {
   var markets = [
     {
       "id": 1,
