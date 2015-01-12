@@ -5,8 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
-
+angular.module('starter', [
+  'ionic', 'starter.controllers', 'starter.services', 'uiGmapgoogle-maps'
+])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -55,6 +56,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+  .state('tab.results-all', {
+    url: '/markets/results/all',
+    views: {
+      'tab-markets': {
+        templateUrl: 'templates/markets.html',
+        controller: 'MarketsCtrl'
+      }
+    }
+  })
   .state('tab.market', {
     url: '/markets/:marketId',
     views: {
@@ -77,4 +87,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/markets');
 
-});
+})
+.config(['uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.17',
+        libraries: ''//'weather,geometry,visualization'
+    });
+}])
+

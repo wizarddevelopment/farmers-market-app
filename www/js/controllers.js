@@ -1,19 +1,17 @@
 angular.module('starter.controllers', [])
-
-.controller('SearchCtrl', function($scope, $state, $ionicLoading) {
+.controller('SearchCtrl', ['$scope', '$state', '$ionicLoading', function($scope, $state, $ionicLoading) {
   console.log('SearchCtrl');
   var geoOptions = {
-    timeout: 10000
+    timeout: 5000
   };
 
   var error = function() {
     $ionicLoading.hide();
-    console.log('error!!!');
+    console.log('error!!!', arguments);
   };
 
   var search = function(position) {
     $ionicLoading.hide();
-    console.log(position.coords.latitude, position.coords.longitude);
     $state.go("tab.results", {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
@@ -27,50 +25,66 @@ angular.module('starter.controllers', [])
     navigator.geolocation.getCurrentPosition(search,error,geoOptions);
   };
 
-})
-.controller('MarketsCtrl', function($scope, $stateParams, Markets) {
+}])
+.controller('MarketsCtrl', function($scope, $stateParams, Markets, $ionicLoading) {
   console.log('MarketsCtrl', $stateParams);
-  if ($stateParams.latitude && $stateParams.longitude) {
-    $scope.markets = Markets.sortByDistance($stateParams);
-  } else {
-    $scope.markets = Markets.all();
-  }
-  $scope.favorite = function(market) {
-    // haha
-    Markets.remove(market.id);
-  };
-})
-.controller('MarketCtrl', function($scope, $stateParams, Markets) {
-  console.log('MarketCtrl');
-  $scope.market = Markets.get($stateParams.marketId);
-  console.log($scope.market)
-  google.maps.event.addDomListener(window, 'load', function() {
-      var myLat = $scope.market.latitude
-      var myLng = $scope.market.longitude
-      var myLatlng = new google.maps.LatLng(myLat, myLng);
+  $scope.markets = [];
 
-      var mapOptions = {
-          center: myLatlng,
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-
-      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-      navigator.geolocation.getCurrentPosition(function(pos) {
-          map.setCenter(new google.maps.LatLng(myLat, myLng));
-          var myLocation = new google.maps.Marker({
-              position: new google.maps.LatLng(myLat, myLng),
-              map: map,
-              title: "My Location"
-          });
-      });
-
-      $scope.map = map;
+  $ionicLoading.show({
+    template: 'Calculating GeoDistance LollyGagging'
   });
 
-})
+  var data;
+  if ($stateParams.latitude && $stateParams.longitude) {
+    data = Markets.sortByDistance($stateParams);
+  } else {
+    data = Markets.all();
+  }
 
+  data.then(function(markets){
+    $scope.markets = markets;
+  });
+
+  data.finally(function(){
+    $ionicLoading.hide();
+  });
+
+  // $scope.favorite = function(market) {
+  //   Markets.remove(market.id);
+  // };
+})
+.controller('MarketCtrl', function($scope, $stateParams, Markets, $ionicLoading, uiGmapGoogleMapApi) {
+  console.log('MarketCtrl');
+  $scope.market = null;
+  $ionicLoading.show({
+    template: 'uncanny farms loading'
+  });
+
+  $scope.map = {
+    zoom: 16,
+    center: {
+      latitude: 0,
+      longitude: 0
+    }
+  };
+
+  var updateMap = function(market){
+    console.log('updateMap', market);
+    $scope.map.center.latitude = market.latitude;
+    $scope.map.center.longitude = market.longitude;
+  };
+
+  var data = Markets.get($stateParams.marketId);
+  data.then(function(market){
+    $scope.market = market;
+    updateMap(market);
+  })
+
+  data.finally(function(){
+    $ionicLoading.hide();
+  });
+})
 .controller('AboutCtrl', function($scope, $ionicLoading) {
+
 });
 

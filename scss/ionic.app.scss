@@ -20,3 +20,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+.market-map .angular-google-map-container {
+  width: 100%;
+  height: 100px;
+}
