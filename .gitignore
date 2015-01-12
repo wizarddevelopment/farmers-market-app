@@ -7,3 +7,4 @@ plugins/
 
 # compiled from sass
 www/css/ionic.app.*
+engine
