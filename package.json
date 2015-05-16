@@ -2,6 +2,7 @@
   "name": "farmers-market-app",
   "version": "1.0.0",
   "description": "A farmer's market app",
+  "repository": "git@github.com:wizarddevelopment/farmers-market-app.git",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",

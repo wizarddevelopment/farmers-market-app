@@ -7,6 +7,8 @@ This is an open source NYC farmers market app and works with the JSONAPI provide
 npm install
 gulp sass
 # gulp watch is great too too
+ionic platform add android # optional
+ionic platform add ios # optional
 ionic plugin add org.apache.cordova.geolocation
 ionic serve
 ```
