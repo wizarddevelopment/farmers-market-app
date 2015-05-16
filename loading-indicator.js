@@ -2,9 +2,7 @@
 
 var React = require('react-native');
 var {
-  StyleSheet,
-  Text,
-  View,
+  // StyleSheet,
   ActivityIndicatorIOS
 } = React;
 
@@ -12,9 +10,9 @@ var LoadingIndicator = React.createClass({
   render: function(){
     return (
       <ActivityIndicatorIOS
-        animating={this.props.animating}
+        animating={this.props.loading}
         size="large"
-        color="#0000ff"
+        color="#0000FF"
       />
     );
   }

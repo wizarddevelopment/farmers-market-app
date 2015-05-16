@@ -7,55 +7,33 @@
 var React = require('react-native');
 var {
   AppRegistry,
-  StyleSheet,
   Text,
   View,
-  ActivityIndicatorIOS
+  AlertIOS
 } = React;
 
-var LoadingIndicator = require('./loading-indicator');
+var LoadingScreen = require('./loading-screen');
+var MarketData = require('./market-data');
+var MarketList = require('./market-list');
 
 var FarmersMarketApp = React.createClass({
+  getInitialState: function(){
+    return { loading: true, markets: [] };
+  },
+  componentDidMount: function() {
+    this.marketData = new MarketData();
+    this.marketData.data()
+      .then(markets => this.setState({markets: markets, loading: false}))
+      .catch(error => AlertIOS.alert(error.message));
+  },
   render: function() {
+    var loading = this.state.loading;
+    if (loading) { return <LoadingScreen /> }
     return (
-      <View style={styles.container}>
-        <LoadingIndicator loading={true}/>
-        <Text style={styles.welcome}>
-          NYC Farmers Markets are the best!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <MarketList markets={this.state.markets} />
     );
   }
 });
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  centering: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 AppRegistry.registerComponent('FarmersMarketApp', () => FarmersMarketApp);
