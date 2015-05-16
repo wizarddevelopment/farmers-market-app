@@ -6,7 +6,9 @@ var {
   Text,
   View,
   ListView,
-  ActivityIndicatorIOS
+  ActivityIndicatorIOS,
+  PickerIOS,
+  PickerItemIOS
 } = React;
 
 var styles = StyleSheet.create({
@@ -16,10 +18,15 @@ var styles = StyleSheet.create({
     margin: 20,
   },
   row: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
     backgroundColor: '#F6F6F6',
+    // border: 1
+  },
+  container: {
+    flex: 1
   }
 });
 
@@ -40,9 +47,10 @@ var MarketList = React.createClass({
 
   render: function() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text style={styles.stats} >There are {this.props.markets.length} markets</Text>
         <ListView
+          style={styles.list}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
           initialListSize={20}

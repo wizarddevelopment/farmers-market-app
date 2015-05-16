@@ -21,10 +21,11 @@ var FarmersMarketApp = React.createClass({
     return { loading: true, markets: [] };
   },
   componentDidMount: function() {
-    this.marketData = new MarketData();
-    this.marketData.data()
+    var marketData = new MarketData();
+    marketData.data()
       .then(markets => this.setState({markets: markets, loading: false}))
-      .catch(error => AlertIOS.alert(error.message));
+      .catch(error => AlertIOS.alert(error.message))
+      .done();
   },
   render: function() {
     var loading = this.state.loading;

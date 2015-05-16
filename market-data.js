@@ -20,3 +20,9 @@ function parseJson(res) {
   }
   return res.json().then(data => data.markets);
 }
+
+// function sortMarkets(markets) {
+//   markets.sort((aMarket, bMarket) => {
+
+//   });
+// }
