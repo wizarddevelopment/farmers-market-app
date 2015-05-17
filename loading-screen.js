@@ -7,13 +7,16 @@ var {
   ActivityIndicatorIOS,
   Text
 } = React;
-var LoadingIndicator = require('./loading-indicator');
 
 var LoadingScreen = React.createClass({
   render: function(){
     return (
-      <View style={styles.container}>
-        <LoadingIndicator loading={this.props.loading}/>
+      <View style={styles.loadingContainer}>
+        <ActivityIndicatorIOS
+          animating={this.props.loading}
+          size="large"
+          color="#0000FF"
+        />
         <Text style={styles.welcome}>
           NYC Farmers Markets are the best!
         </Text>
@@ -23,7 +26,7 @@ var LoadingScreen = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  container: {
+  loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

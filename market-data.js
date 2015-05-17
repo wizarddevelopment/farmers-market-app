@@ -9,7 +9,12 @@ module.exports = class MarketData {
   }
 
   data() {
-    return this.fetch();
+    this.fetchedData = this.fetchedData || this.fetch();
+    return this.fetchedData;
+  }
+
+  sortBy(field) {
+    return this.data().then(sortBy(field));
   }
 }
 
@@ -21,8 +26,14 @@ function parseJson(res) {
   return res.json().then(data => data.markets);
 }
 
-// function sortMarkets(markets) {
-//   markets.sort((aMarket, bMarket) => {
-
-//   });
-// }
+function sortBy(field){
+  return (data) => {
+    return data.sort((aMarket, bMarket) => {
+      if (typeof aMarket[field] === 'string' ){
+        return aMarket[field].localeCompare(bMarket[field]);
+      } else {
+        return aMarket[field] - bMarket[field];
+      }
+    })
+  };
+}
