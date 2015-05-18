@@ -6,16 +6,13 @@ module.exports = class MarketData {
     opt = opt || {};
     this.url = opt.url || 'http://api.farmersmarketapp.nyc/api/markets';
   }
-
   fetch() {
     return fetch(this.url).then(parseJson);
   }
-
   data() {
     this.fetchedData = this.fetchedData || this.fetch();
     return this.fetchedData;
   }
-
   sortBy(field) {
     return this.data().then(sortBy(field));
   }
