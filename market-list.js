@@ -2,6 +2,7 @@
 var React = require('react-native');
 var LoadingScreen = require('./loading-screen');
 var MarketUpdater = require('./market-updater');
+var MarketView = require('./market-view');
 
 var {
   ActivityIndicatorIOS,
@@ -16,7 +17,8 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    marginTop: 65
   },
   list: {
     // backgroundColor: 'blue'
@@ -54,6 +56,13 @@ var MarketList = React.createClass({
   onSelectTab: function(tab){
     this.marketUpdater.sortMarketsBy(tab.toLowerCase());
   },
+  onRowSelect: function(rowData){
+    this.props.navigator.push({
+      title: rowData.name,
+      component: MarketView,
+      passProps: {... rowData}
+    });
+  },
   render: function() {
     var display = <LoadingScreen />;
     if (!this.state.loading) {
@@ -66,7 +75,7 @@ var MarketList = React.createClass({
       />;
     }
     return (
-      <View style={[this.props.style, styles.container]}>
+      <View style={styles.container}>
         {this.renderTabBar()}
         {display}
       </View>
@@ -80,9 +89,9 @@ var MarketList = React.createClass({
         onValueChange={this.onSelectTab} />
     );
   },
-  renderRow: function(rowData, onClick) {
+  renderRow: function(rowData) {
     return(
-      <TouchableHighlight onClick={onClick}>
+      <TouchableHighlight onPress={this.onRowSelect.bind(null,rowData)}>
         <View style={styles.row} key={rowData.id}>
           <Text>{rowData.name}</Text>
         </View>

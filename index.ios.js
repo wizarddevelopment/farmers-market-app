@@ -11,9 +11,6 @@ var styles = React.StyleSheet.create({
   container: {
     flex: 1
   },
-  childContainer: {
-    marginTop: 65,
-  }
 });
 
 var FarmersMarketApp = React.createClass({
@@ -22,9 +19,8 @@ var FarmersMarketApp = React.createClass({
       <React.NavigatorIOS
         style={styles.container}
         initialRoute={{
-          title: 'Market Finder',
-          component: MarketList,
-          passProps: { style: styles.childContainer }
+          title: 'Markets',
+          component: MarketList
         }} />
     );
   }
