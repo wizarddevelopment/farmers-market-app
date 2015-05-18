@@ -1,19 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
 var {
-  AppRegistry
+  AppRegistry,
 } = React;
 
 var MarketList = require('./market-list');
 
+var styles = React.StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  childContainer: {
+    marginTop: 65,
+  }
+});
+
 var FarmersMarketApp = React.createClass({
   render: function() {
-    return (<MarketList />);
+    return (
+      <React.NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'Market Finder',
+          component: MarketList,
+          passProps: { style: styles.childContainer }
+        }} />
+    );
   }
 });
 

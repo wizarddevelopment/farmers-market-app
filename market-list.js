@@ -1,40 +1,37 @@
+'use strict';
 var React = require('react-native');
 var LoadingScreen = require('./loading-screen');
-var MarketData = require('./market-data');
+var MarketUpdater = require('./market-updater');
 
 var {
   ActivityIndicatorIOS,
-  AlertIOS,
   ListView,
   StyleSheet,
   SegmentedControlIOS,
   Text,
+  TouchableHighlight,
+  PixelRatio,
   View
 } = React;
 
 var styles = StyleSheet.create({
-  stats: {
-    fontSize: 15,
-    textAlign: 'center',
-    margin: 20,
+  container: {
+    flex: 1
+  },
+  list: {
+    // backgroundColor: 'blue'
+  },
+  tabs: {
+
   },
   row: {
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
     backgroundColor: '#F6F6F6',
-    // border: 1
-  },
-  listContainer: {
-    flex: 1
-  },
-  tabBar: {
-    // backgroundColor: '#FFFFFF',
-    // flex: 1,
-  },
-  tab:{
-    // flex: 1,
-    // alignItems: 'center',
+    borderColor: '#A0A0A0',
+    borderWidth: 1 / PixelRatio.get(),
+    borderBottomWidth: 0
   }
 });
 
@@ -51,35 +48,11 @@ var MarketList = React.createClass({
     };
   },
   componentWillMount: function() {
-    this.marketData = new MarketData();
-    this.marketData.sortBy(this.state.sortBy)
-      .then(markets => this.setMarketData(markets))
-      .catch(error => AlertIOS.alert(error.message))
-      .done();
-  },
-  sortMarketsBy: function(name) {
-    if (this.state.sortBy == name) { return; }
-    console.log('sortBy', name);
-    this.setState({
-      loading: true,
-      sortBy: name
-    });
-    this.marketData.sortBy(name)
-      .then(markets => this.setMarketData(markets))
-      .catch(error => AlertIOS.alert(error.message))
-      .done();
-  },
-  setMarketData: function(markets) {
-    var dataSource = this.state.dataSource;
-    this.setState({
-      markets: markets,
-      dataSource: dataSource.cloneWithRows(markets),
-      loading: false
-    });
+    this.marketUpdater = new MarketUpdater(this)
+    this.marketUpdater.update();
   },
   onSelectTab: function(tab){
-    this.sortMarketsBy(tab.toLowerCase());
-    console.log(this.refs.marketList);
+    this.marketUpdater.sortMarketsBy(tab.toLowerCase());
   },
   render: function() {
     var display = <LoadingScreen />;
@@ -93,8 +66,7 @@ var MarketList = React.createClass({
       />;
     }
     return (
-      <View style={styles.listContainer}>
-        <Text style={styles.stats} >There are {this.state.markets.length} markets</Text>
+      <View style={[this.props.style, styles.container]}>
         {this.renderTabBar()}
         {display}
       </View>
@@ -102,16 +74,20 @@ var MarketList = React.createClass({
   },
   renderTabBar: function() {
     return (
-        <SegmentedControlIOS
-          values={this.state.tabs}
-          selectedIndex={0}
-          onValueChange={this.onSelectTab} />
+      <SegmentedControlIOS
+        values={this.state.tabs}
+        selectedIndex={0}
+        onValueChange={this.onSelectTab} />
     );
   },
-  renderRow: function(rowData) {
-    return(<View style={styles.row} key={rowData.id}>
-      <Text>{rowData.name}</Text>
-    </View>);
+  renderRow: function(rowData, onClick) {
+    return(
+      <TouchableHighlight onClick={onClick}>
+        <View style={styles.row} key={rowData.id}>
+          <Text>{rowData.name}</Text>
+        </View>
+      </TouchableHighlight>
+    );
   }
 });
 
