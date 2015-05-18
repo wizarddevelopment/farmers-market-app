@@ -53,8 +53,11 @@ var MarketView = React.createClass({
 // "web": "http://www.grownyc.org",
 // "twitter": null
 // },
-
   render: function(){
+    var distanceView;
+    if (this.props.distanceMiles) {
+     distanceView= <Text>{this.props.distanceMiles} Miles from you</Text>
+    }
     return (
       <View style={styles.container}>
         <MapView
@@ -67,6 +70,7 @@ var MarketView = React.createClass({
         <Text>{this.props.location_description}</Text>
         <Text>{this.props.schedule_hours_description}</Text>
         <Text>{this.props.schedule_season_description}</Text>
+        {distanceView}
       </View>
     );
   }

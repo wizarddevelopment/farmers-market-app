@@ -18,7 +18,7 @@ var LoadingScreen = React.createClass({
           color="#0000FF"
         />
         <Text style={styles.welcome}>
-          NYC Farmers Markets are the best!
+          Farmers Markets are the best!
         </Text>
       </View>
     );

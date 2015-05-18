@@ -45,7 +45,7 @@ var MarketList = React.createClass({
         rowHasChanged: (row1, row2) => row1.id !== row2.id
       }),
       markets: [],
-      tabs: ['Name', 'ID'],
+      tabs: ['Name', 'Location'],
       sortBy: 'name'
     };
   },
@@ -54,7 +54,11 @@ var MarketList = React.createClass({
     this.marketUpdater.update();
   },
   onSelectTab: function(tab){
-    this.marketUpdater.sortMarketsBy(tab.toLowerCase());
+    var field = tab.toLowerCase()
+    if (field === 'location') {
+      return this.marketUpdater.sortByLocation(field);
+    }
+    this.marketUpdater.sortMarketsBy(field);
   },
   onRowSelect: function(rowData){
     this.props.navigator.push({
@@ -90,10 +94,14 @@ var MarketList = React.createClass({
     );
   },
   renderRow: function(rowData) {
+    var distanceView;
+    if (rowData.distanceMiles) {
+     distanceView = ` ${rowData.distanceMiles}mi`;
+    }
     return(
       <TouchableHighlight onPress={this.onRowSelect.bind(null,rowData)}>
         <View style={styles.row} key={rowData.id}>
-          <Text>{rowData.name}</Text>
+          <Text>{rowData.name}{distanceView}</Text>
         </View>
       </TouchableHighlight>
     );

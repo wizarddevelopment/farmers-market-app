@@ -1,4 +1,6 @@
 'use strict';
+var geolib = require('geolib');
+
 module.exports = class MarketData {
   constructor(opt) {
     opt = opt || {};
@@ -17,6 +19,11 @@ module.exports = class MarketData {
   sortBy(field) {
     return this.data().then(sortBy(field));
   }
+  sortByLocation(location) {
+    return this.data()
+      .then(addLocation(location))
+      .then(sortBy('distanceMeters'));
+  }
 }
 
 function parseJson(res) {
@@ -27,7 +34,7 @@ function parseJson(res) {
   return res.json().then(data => data.markets);
 }
 
-function sortBy(field){
+function sortBy(field) {
   return (data) => {
     return data.sort((aMarket, bMarket) => {
       if (typeof aMarket[field] === 'string' ){
@@ -36,5 +43,18 @@ function sortBy(field){
         return aMarket[field] - bMarket[field];
       }
     })
+  };
+}
+
+function addLocation(location) {
+  return (data) => {
+    return data.map(market => {
+      var distanceMeters = geolib.getDistance(market, location);
+      var distanceMiles = distanceMeters * 0.00062137;
+      distanceMiles = Math.round(distanceMiles * 100) / 10;
+      market.distanceMiles = distanceMiles;
+      market.distanceMeters = distanceMeters;
+      return market;
+    });
   };
 }
