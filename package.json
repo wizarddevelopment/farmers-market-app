@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "geolib": "^2.0.14",
-    "react-native": "^0.4.4"
+    "react-native": "^0.41.2"
   }
 }
